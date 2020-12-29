@@ -1,5 +1,5 @@
 from django.db import models
-from .validators import phone_validator
+from .validators import phone_shape_validator
 
 # Create your models here.
 class Provider(models.Model):
@@ -31,7 +31,9 @@ class Appointment(models.Model):
     patient_full_name = models.CharField(max_length=100) # first_name or full_name (requirements)?
     patient_gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     patient_date_of_birth = models.DateField()
-    patient_phone_number = models.CharField(validators=[phone_validator], max_length=17, blank=True)
+    # TODO: Implement better validation using
+    # https://stackoverflow.com/questions/14894899/what-is-the-minimum-length-of-a-valid-international-phone-number
+    patient_phone_number = models.CharField(validators=[phone_shape_validator], max_length=17, blank=True)
 
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
 

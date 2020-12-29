@@ -1,4 +1,5 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from django.http import JsonResponse
 from .models import Provider, Appointment
 from .serializers import ProviderSerializer, AppointmentSerializer
 
@@ -25,6 +26,23 @@ class ProviderViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+# TODO: Prevent appointments from clashing by responding with 400
 class AppointmentViewSet(viewsets.ModelViewSet):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        phone = data.get('patient_phone_number', None)
+        serializer = AppointmentSerializer(data=data)
+
+        # TODO: Improve with refactoring hard-coded values
+        # App-level validation doesn't occur at Model, so we validate min_length here
+        if serializer.is_valid() and phone is not None and len(phone) >= 9:
+            serializer.save()
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse({
+            'patient_phone_number': ['Phone number must have a minimum of 9 digits.']
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )
