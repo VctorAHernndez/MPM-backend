@@ -1,5 +1,6 @@
 from rest_framework import viewsets, status
 from django.http import JsonResponse
+from django.db.models import Q
 from .models import Provider, Appointment
 from .serializers import ProviderSerializer, AppointmentSerializer
 
@@ -15,8 +16,13 @@ class ProviderViewSet(viewsets.ModelViewSet):
         queryset = Provider.objects.all()
 
         # Get params
+        query = self.request.query_params.get('q', None)
         name = self.request.query_params.get('name', None)
         specialty = self.request.query_params.get('specialty', None)
+
+        if query is not None:
+            combined_filter = Q(full_name__contains=query) | Q(specialty__contains=query)
+            queryset = queryset.filter(combined_filter)
 
         if name is not None:
             queryset = queryset.filter(full_name__contains=name)
