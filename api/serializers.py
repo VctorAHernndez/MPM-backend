@@ -22,5 +22,5 @@ class AppointmentSerializer(serializers.ModelSerializer):
             'patient_gender',
             'patient_date_of_birth',
             'patient_phone_number',
-            'provider', # does it pass in the id? or what
+            'provider',
             )

@@ -6,16 +6,11 @@ from .serializers import ProviderSerializer, AppointmentSerializer
 
 # Create your views here.
 class ProviderViewSet(viewsets.ModelViewSet):
-    # queryset = Provider.objects.all() # .order_by('full_name')
     serializer_class = ProviderSerializer
 
     def get_queryset(self):
-        """
-        Restricts on name, specialty
-        """
         queryset = Provider.objects.all()
 
-        # Get params
         query = self.request.query_params.get('q', None)
         name = self.request.query_params.get('name', None)
         specialty = self.request.query_params.get('specialty', None)
