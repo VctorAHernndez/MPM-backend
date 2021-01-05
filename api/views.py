@@ -16,14 +16,14 @@ class ProviderViewSet(viewsets.ModelViewSet):
         specialty = self.request.query_params.get('specialty', None)
 
         if query is not None:
-            combined_filter = Q(full_name__contains=query) | Q(specialty__contains=query)
+            combined_filter = Q(full_name__icontains=query) | Q(specialty__icontains=query)
             queryset = queryset.filter(combined_filter)
 
         if name is not None:
-            queryset = queryset.filter(full_name__contains=name)
+            queryset = queryset.filter(full_name__icontains=name)
 
         if specialty is not None:
-            queryset = queryset.filter(specialty__contains=specialty)
+            queryset = queryset.filter(specialty__icontains=specialty)
 
         return queryset
 
