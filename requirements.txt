@@ -1,6 +1,8 @@
 Django
 djangorestframework
 pylint-django
+psycopg2
 psycopg2-binary
-python-dotenv
 django-cors-headers
+gunicorn
+django-heroku
