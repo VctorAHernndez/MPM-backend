@@ -154,10 +154,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-]
-
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"medical-provider-marketplace.netlify.app$", # permit both draft and deployment URLs
+    "https://medical-provider-marketplace.netlify.app/",
 ]
 
 
