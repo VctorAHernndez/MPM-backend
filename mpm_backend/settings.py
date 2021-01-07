@@ -28,7 +28,7 @@ SECRET_KEY = getenv('SECRET_KEY', 'mj(&1XPEzAO1Niq8UrpO3z-rylmcscxY9GqCR7eozOy1m
 DEBUG = getenv('DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = [
-    'mpm-django-backend.herokuapp.com',
+    getenv('HOST_URL', '.localhost'),
     '.localhost',
     '127.0.0.1',
     '[::1]',
@@ -153,8 +153,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # CORS
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "https://medical-provider-marketplace.netlify.app",
+    'http://localhost:3000',
+    getenv('FRONTEND_APP_URL', 'http://localhost:3000'),
 ]
 
 

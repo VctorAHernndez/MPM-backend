@@ -34,7 +34,13 @@ Installation of `psycopg2` might be cumbersome if built from source. You might w
 
 ### Additional Notes
 
-If you would like to run it on production (which uses PostgreSQL), you would have to make changes in `.env`, explicitly setting `DEBUG` to `False` and adding the `DB_USER`, `DB_NAME`, `DB_PASSWORD`, `DB_HOST` and `DB_PORT` variables. Make sure to create the appropriate PostgreSQL roles with login permissions.
+If you would like to set it up with a custom PostgreSQL database, you'd have to make changes in `.env`, setting the `DB_USER`, `DB_NAME`, `DB_PASSWORD`, `DB_HOST` and `DB_PORT` variables. Make sure to create the appropriate PostgreSQL roles with login permissions.
+
+Additionally, if you plan on hosting it, set `HOST_URL` to the host URL (i.e. https://www.example-backend.com).
+
+Finally, if you plan on using a frontend with it, set `FRONTEND_APP_URL` to the actual origin (i.e. https://www.example-frontend.com).
+
+If used in production, remember to set `DEBUG` to `False`.
 
 # Progress & Maintenance
 
